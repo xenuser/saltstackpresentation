@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>SaltStack: Infrastructure the spicy way</title>
+		<title>SaltStack: Marionettenspieler für die Server-Farm</title>
 
-		<meta name="description" content="Introduction into SaltStack by Valentin Hoebel">
+		<meta name="description" content="Einführung in SaltStack von Valentin Höbel">
 		<meta name="author" content="Valentin Hoebel">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -42,42 +42,99 @@
 			<div class="slides">
 				<section>
 					<h1>SaltStack</h1>
-					<h3>Infrastructure the spicy way</h3>
+					<h3>Marionettenspieler für die Server-Farm</h3>
 					<p>
-						<small>Presentation by <a href="http://hoebel.net">Valentin Hoebel</a> / <a href="http://twitter.com/xenuser">@xenuser</a></small>
+						<small>Eine Einführung von <a href="http://hoebel.net">Valentin Hoebel</a> / <a href="http://twitter.com/xenuser">@xenuser (Twitter)</a></small>
 					</p>
 				</section>
 
 				<section>
-					<h2>Who is that guy?</h2>
-					<p class="fragment">
-						Valentin Hoebel</br>
-					</p>
-					<p class="fragment">
-						Cloud Architect @ NFON</br>
-					</p>
-					<p class="fragment">
-						Linux and open source software enthusiast</br>
-					</p>
-					<p class="fragment">
-						More than 40 publications offline and online (Linux Magazine, golem.de...)
-					</p>
+					<section style="text-align: left;">
+						<h2>Wer zum Teufel..?</h2>
+						<p>
+							<ul>
+						     <li>Valentin Höbel</li>
+						     <li>Cloud Architect @ NFON</li>
+					       <li>Arbeitet mit Linux und Open-Source-Software seit 2007</li>
+						    <li>Über 40 Veröffentlichungen in Online- und Printmedien (Linux Magazin, golem.de...)</li>
+				  	</p>
+					</section>
+					<section style="text-align: left;">
+						<h2>Worum geht's heute?</h2>
+						<p>
+							<ul>
+						     <li>Grobe Einführung in SaltStack</li>
+						     <li>Vorteile, Nachteile</li>
+					       <li>Mögliche Einsatzszenarien</li>
+				  	</p>
+					</section>
+					<section style="text-align: left;">
+						<h2>Ein paar Anmerkungen...</h2>
+						<p>
+							<ul>
+						     <li>Zwischenfragen sind immer willkommen...</li>
+						     <li>... wenn möglich bitte vorm nächsten Folienwechsel</li>
+					       <li>Heute aus Zeitgründen leider keine Live-Demo :(</li>
+				  	</p>
+					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>What is SaltStack?</h2>
+						<h2>Bereit?</h2>
+					</section>
+					<section data-background="images/servers_black.png" data-background-repeat="repeat" data-background-size="200px">
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
+							<h2>Stellt euch vor...</h2>
+							<p>ihr müsst eine Vielzahl an Systemen verwalten...</p>
+						</div>
 					</section>
 					<section>
-						<h2>Configuration  management</h2>
+						<h2>Vielleicht auch verschiedene Plattformen?</h2>
+						<div>
+								<img src="images/platforms/tux.png" height="140px" style="border: 0px;">
+								<img src="images/platforms/apple.png" height="140px" style="border: 0px;">
+								<img src="images/platforms/solaris.png" height="140px" style="border: 0px;">
+								<img src="images/platforms/bsd.png" height="140px" style="border: 0px;">
+								<img src="images/platforms/windows.png" height="140px" style="border: 0px;">
+							</div>
 					</section>
 					<section>
-						<h2>Massive parallel sys administration</h2>
+						<h2>Oder auch verschiedene Standorte?</h2>
+						<table>
+							<tr>
+								<td>Frankfurt</td>
+								<td>München</td>
+								<td>AWS/Softlayer/OVH...</td>
+								<td>Hetzner</td>
+							</tr>
+							<tr>
+								<td><img src="images/rack.png" height="140px" style="border: 0px;"></td>
+								<td><img src="images/rack.png" height="140px" style="border: 0px;"></td>
+								<td><img src="images/cloud.png" height="140px" style="border: 0px;"></td>
+								<td><img src="images/servers.png" height="140px" style="border: 0px;"></td>
+							</tr>
+						</table>
 					</section>
-					<section>
-						<h2>Orchestration</h2>
+					<section data-background="images/lonely.jpg">
+						<br><br><br><br><br><br><br>
+						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 00px;">
+						  <h2>Mit super viel Personal?</h2>
+					  </div>
 					</section>
+
 				</section>
+
+				<section>
+					<h2>Configuration  management</h2>
+				</section>
+				<section>
+					<h2>Massive parallel sys administration</h2>
+				</section>
+				<section>
+					<h2>Orchestration</h2>
+				</section>
+
 
 				<section>
 					<section>
