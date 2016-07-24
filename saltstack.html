@@ -123,12 +123,14 @@
 						<img src="images/saltstack.jpg">
 					</section>
 					<section>
-						<h2>Historisches</h2>
+						<h2>Hintergründe</h2>
 						<ul>
 							<li>Erstmals aufgetaucht im März 2011</li>
 							<li>Autor: Thomas Hatch</li>
 							<li>Geschrieben für zentrale Infrastruktur-Verwaltung</li>
 							<li>Löste damals verschiedene Probleme</li>
+							<li>In Python geschrieben</li>
+							<li>Open-Source-Software!</li>
 						</ul>
 					</section>
 					<section>
@@ -1061,17 +1063,103 @@ Total states run:     5
 					</section>
 					<section data-background="images/reactor.jpg" style="font-weight: bold; text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">
 						<h2 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Salt Reactor</h2>
-
+						<br>
+						<p class="fragment">Salt Reactors lauschen auf spezifizierte Events...</p>
+						<p class="fragment">.. und können dann Aktionen lostreten</p>
+						<p class="fragment">Beispiele:</p>
+						<ul>
+							<li class="fragment">Neue Backends tragen sich automatisch im LB ein</li>
+							<li class="fragment">Neue Hosts tragen sich automatisch im Nagios ein</li>
+						</ul>
 					</section>
-
+					<section>
+						<h2>Salt Syndic</h2>
+						<img src="images/syndic.png">
+						<p>"Zwischen-Master" bzw. "Pass-Through-Master"</p>
+					</section>
+					<section>
+						<h2>Salt Proxy</h2>
+						<p class="fragment">Eine Art Light-Minion für Kommunikation mit Drittgeräten...</p>
+						<p class="fragment">... auf denen kein Salt-Minion laufen kann</p>
+						<p class="fragment">Kommunikations-Interface muss i.d.R. selbst geschrieben werden</p>
+						<p class="fragment">Beispiele für Drittsysteme: Netzwerk-Geräte, Lampen, IoT-Geräte, Smartphones</p>
+						<p class="fragment">Voraussetzung: Ziel ist "irgendwie" über eine IP erreichbar</p>
+						<p class="fragment">Mehr Infos <a href="https://docs.saltstack.com/en/latest/topics/proxyminion/index.html">hier</a>.</p>
+					</section>
+					<section>
+						<h2>Weitere Features</h2>
+						<ul>
+							<li>Files auf Minion kopieren</li>
+							<li>Files von Minions einsammeln</li>
+							<li>Rückgabe von Minion in MySQL speichern ("Returner")</li>
+						</ul>
+					</section>
 				</section>
 
-files kopieren
-files einsammeln
-returner mysql etc.
 
-syndic
-proxy
+				<section>
+					<section>
+						<h2>Fast geschafft ;)</h2>
+					</section>
+					<section>
+						<h2>Vorteile von SaltStack</h2>
+						<br>
+						<ul>
+							<li class="fragment">"Viele Tools in einem"</li>
+							<li class="fragment">Riesiger Funktionsumfang</li>
+							<li class="fragment">Schnell, parallel, skylierbar (10.000e Server), flexibel</li>
+							<li class="fragment">Benötigt *kein* SSH!</li>
+							<li class="fragment">Fundament für Vollautomatisierung</li>
+							<li class="fragment">Viel Dokumentation verfügbar</li>
+							<li class="fragment">Große Community</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Nachteile von SaltStack</h2>
+						<br>
+						<ul>
+							<li>Gewisse Einstiegshürden bei Config-Mgmt</li>
+							<li>Personal zu finden ist nicht ganz leicht</li>
+							<li>Anzahl an Büchern und deutschsprachigen Artikeln begrenzt</li>
+							<li>Hat Abhängigkeit von Python</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Typische Einsatzszenarien</h2>
+						<table>
+							<tr>
+								<td>Infrastruktur-Mgmt.</td>
+								<td>Config-Mgmt.</td>
+								<td>Automatisierung</td>
+							</tr>
+							<tr>
+								<td>Standardisierung</td>
+								<td>Umsetzung von Workflows</td>
+								<td>Client-Verwaltung</td>
+							</tr>
+						</table>
+					</section>
+				</section>
+
+				<section>
+					<section data-background="images/tafel.jpg">
+						<div style="position: static; margin-left: -180px; text-align: left;">
+							<h2 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Präsentationsende</h2>
+							<br>
+							<h3 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Modernes Infrastrukturmanagement <br>mit SaltStack</h3>
+							<br>
+							<p style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">
+								Eine Einführung von <a href="http://hoebel.net">Valentin Hoebel</a>
+							</p>
+							<br>
+							<small><p>
+								Quellen: <a href="https://pixabay.com/de/">Bilder/Fotos</a> / <a href="https://www.draw.io/">Diagramme</a> / <a href="https://docs.saltstack.com/en/latest/">SaltStack-Dokumentation</a>
+								<br>
+								Präsentation erstellt mit <a href="http://lab.hakim.se/reveal-js/">Reveal.JS</a>.
+							</p></small>
+						</div>
+					</section>
+				</section>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
