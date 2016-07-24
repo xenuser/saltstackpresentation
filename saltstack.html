@@ -663,6 +663,353 @@ ubuntu:
 				</section>
 
 
+				<section>
+					<section>
+						<h2>Configuration Management</h2>
+						<br>
+						<ul>
+							<li>Installiert und konfiguriert Dienste/Umgebungen</li>
+							<li>Module verfügbar, heissen aber States</li>
+							<li>Kann ebenfalls gleichzeitig auf mehreren Systemen ausgeführt werden</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Vorgehensweise:</h2>
+						<br>
+						<ol>
+							<li class="fragment">State-Files schreiben</li>
+							<li class="fragment">Im Filesystem auf Master-Server ablegen</li>
+							<li class="fragment">States auf Minion(s) applyen</li>
+							<li class="fragment">Minion synct sich die State-Files</li>
+							<li class="fragment">Minion führt State-Files aus</li>
+							<li  class="fragment">Minion meldet sich mit Ergebnis beim Master</li>
+						</ol>
+					</section>
+					<section>
+						<h2>Ein paar Infos..</h2>
+						<br>
+						<p>Inhalte fürs Config-Mgmt können direkt im Filesystem...</p>
+						<p>  oder auch im Git liegen</p>
+						<p>States können manuell angewandt werden</p>
+						<p>oder automatisiert auf den Minions, z. B. via Cron </p>
+					</section>
+					<section>
+						<h2>So gelingt der Einstieg</h2>
+						<ol>
+							<li>Verzeichnisstruktur mit States und Pillars erstellen</li>
+							<li>States den Zielsystemen in s.g. "top.sls"-Dateien zuordnen</li>
+							<li>States anwenden</li>
+						</ol>
+					</section>
+					<section>
+						<p>(Pillars sind selbstdefinierte Attribute, wie VHost- oder Benutzernamen)</p>
+						<p>(Im "Key:Value"-Format)</P>
+						<p>(Frei definierbar)</p>
+					</section>
+					<section>
+						<p>Verzeichnisstruktur unter /srv/salt auf dem Master-Server</p>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:~# tree /srv/salt/
+/srv/salt/
+├── pillars
+│   ├── top.sls <-- Weist Attribute bestimmten Servern zu
+│   └── webservers
+│       ├── users.sls <-- Definiert Benutzer
+│       └── vhosts.sls <-- Definiert VHosts
+└── states
+    ├── top.sls <--- Weist bestimmte States bestimmten Servern zu
+    ├── users.sls <--- Legt Benutzer aus Pillars an
+    └── webservers
+        ├── apache.sls <-- Installiert Apache
+        └── nginx.sls <-- Installiert Nginx
+
+4 directories, 7 files
+</code></pre>
+					</section>
+					<section>
+						<p>Anwendung:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+salt "ubuntu" state.highstate
+</code></pre>
+					</section>
+					<section>
+						<h2>Im Detail..</h2>
+					</section>
+					<section>
+						<p>pillars/top.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+base:
+  "ubuntu":
+    - webservers.users
+    - webservers.vhosts
+</code></pre>
+						<p>pillars/webservers/users.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+users:
+  - valentin.hoebel
+  - max.mustermann
+  - hans.wurst
+  - local.horst
+</code></pre>
+						<p>pillars/webservers/vhosts.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+vhosts:
+  - hoebel.net
+  - xenuser.org
+  - localhost
+</code></pre>
+					</section>
+					<section>
+						<p>Kontrolle:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:/srv/salt/pillars/webservers# salt "ubuntu" pillar.items
+ubuntu:
+    ----------
+    users:
+        - valentin.hoebel
+        - max.mustermann
+        - hans.wurst
+        - local.horst
+    vhosts:
+        - hoebel.net
+        - xenuser.org
+        - localhost
+</code></pre>
+					</section>
+					<section>
+						<p>states/top.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+base:
+  "ubuntu":
+    - users
+    - webservers.apache
+</code></pre>
+					</section>
+					<section>
+						<p>states/users.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+{% for user in pillar['users'] %}
+
+{{ user  }}:
+  user.present:
+    - shell: /bin/bash
+    - home: /home/{{ user }}
+
+{% endfor %}
+</code></pre>
+					</section>
+					<section>
+						<p>states/webserver/apache.sls:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+apache2:
+  pkg.installed
+</code></pre>
+					</section>
+					<section>
+						<p>Ausführung:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:/srv/salt/states# salt ubuntu state.highstate
+ubuntu:
+----------
+          ID: valentin.hoebel
+    Function: user.present
+      Result: True
+     Comment: New user valentin.hoebel created
+     Started: 12:07:22.116277
+    Duration: 17.248 ms
+     Changes:
+              ----------
+              fullname:
+              gid:
+                  1000
+              groups:
+                  - valentin.hoebel
+              home:
+                  /home/valentin.hoebel
+              homephone:
+              name:
+                  valentin.hoebel
+              passwd:
+                  x
+              roomnumber:
+              shell:
+                  /bin/bash
+              uid:
+                  1000
+              workphone:
+----------
+          ID: max.mustermann
+    Function: user.present
+      Result: True
+     Comment: New user max.mustermann created
+     Started: 12:07:22.133608
+    Duration: 12.644 ms
+     Changes:
+              ----------
+              fullname:
+              gid:
+                  1001
+              groups:
+                  - max.mustermann
+              home:
+                  /home/max.mustermann
+              homephone:
+              name:
+                  max.mustermann
+              passwd:
+                  x
+              roomnumber:
+              shell:
+                  /bin/bash
+              uid:
+                  1001
+              workphone:
+----------
+          ID: hans.wurst
+    Function: user.present
+      Result: True
+     Comment: New user hans.wurst created
+     Started: 12:07:22.146331
+    Duration: 8.521 ms
+     Changes:
+              ----------
+              fullname:
+              gid:
+                  1002
+              groups:
+                  - hans.wurst
+              home:
+                  /home/hans.wurst
+              homephone:
+              name:
+                  hans.wurst
+              passwd:
+                  x
+              roomnumber:
+              shell:
+                  /bin/bash
+              uid:
+                  1002
+              workphone:
+----------
+          ID: local.horst
+    Function: user.present
+      Result: True
+     Comment: New user local.horst created
+     Started: 12:07:22.154930
+    Duration: 7.544 ms
+     Changes:
+              ----------
+              fullname:
+              gid:
+                  1003
+              groups:
+                  - local.horst
+              home:
+                  /home/local.horst
+              homephone:
+              name:
+                  local.horst
+              passwd:
+                  x
+              roomnumber:
+              shell:
+                  /bin/bash
+              uid:
+                  1003
+              workphone:
+----------
+          ID: apache2
+    Function: pkg.installed
+      Result: True
+     Comment: The following packages were installed/updated: apache2
+     Started: 12:07:22.304957
+    Duration: 4925.393 ms
+     Changes:
+              ----------
+              apache2:
+                  ----------
+                  new:
+                      2.4.12-2ubuntu2.1
+                  old:
+              apache2-api-20120211:
+                  ----------
+                  new:
+                      1
+                  old:
+              apache2-bin:
+                  ----------
+                  new:
+                      2.4.12-2ubuntu2.1
+                  old:
+              apache2-data:
+                  ----------
+                  new:
+                      2.4.12-2ubuntu2.1
+                  old:
+              apache2-utils:
+                  ----------
+                  new:
+                      2.4.12-2ubuntu2.1
+                  old:
+              httpd:
+                  ----------
+                  new:
+                      1
+                  old:
+              httpd-cgi:
+                  ----------
+                  new:
+                      1
+                  old:
+
+Summary
+------------
+Succeeded: 5 (changed=5)
+Failed:    0
+------------
+Total states run:     5
+</code></pre>
+					</section>
+					<section>
+						<h2>Ein paar Tipps:</h2>
+						<ul>
+							<li>Pillars verwenden, wann immer möglich</li>
+							<li>Modular schreiben für Wiederverwendbarkeit</li>
+							<li>Saubere Verzeichnisstruktur pflegen wgn. Übersicht</li>
+							<li>Besser viele kleine States als Monster-States</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+							<h2>Orchestration</h2>
+							<br>
+							<ul>
+								<li>Kann Aktionen in gewünschter Reihenfolge abarbeiten</li>
+								<li>Abhängigkeiten definierbar</li>
+								<li>Führt Module und States aus (Mischung aus Remote-Execution und Config-Mgmt)</li>
+							</ul>
+					</section>
+					<section>
+						<h2>Vorgehensweise:</h2>
+						<ol>
+							<li>Plan erstellen</li>
+							<li>State-Files schreiben</li>
+							<li>Orchestration-State (Masterplan) schreiben</li>
+							<li>Im Filesystem auf Master-Server ablegen</li>
+							<li>Orchestrierung anwenden</li>
+						</ol>
+					</section>
+					<section data-background="#ffffff">
+						<h2>Ein Beispiel</h2>
+						<p>Load-Balancer-Umgebung</p>
+						<img src="images/orch_balancer.png">
+				</section>
+
+
+
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
