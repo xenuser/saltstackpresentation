@@ -231,319 +231,438 @@ client01:
 </code></pre>
 					</section>
 					<section>
-
+						<h2>Salt Grains</h2>
+						<ul>
+							<li>Grains = Eigenschaften/Attribute</li>
+							<li>Werden vom Minion selbst generiert</li>
+							<li>Enthalten Informationen zu OS, Konfiguration und HW</li>
+							<li>Können überall einbezogen/abgefragt werden</li>
+							<li>Eigene Grains sind möglich (Rolle, Standort...)</li>
+							<li>Grains sind mit Facts von Puppet vergleichbar</li>
+						</ul>
 					</section>
-
-
-
 					<section>
+						<p>Auflistung von Grains auf einem Minion:</p>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:~# salt "ubuntu" grains.items
+ubuntu:
+    ----------
+    SSDs:
+    biosreleasedate:
+        07/02/2015
+    biosversion:
+        6.00
+    cpu_flags:
+        - fpu
+        - vme
+        - de
+        - pse
+        - tsc
+        - msr
+        - pae
+        - mce
+        - cx8
+        - apic
+        - sep
+        - mtrr
+        - pge
+        - mca
+        - cmov
+        - pat
+        - pse36
+        - clflush
+        - dts
+        - mmx
+        - fxsr
+        - sse
+        - sse2
+        - ss
+        - syscall
+        - nx
+        - pdpe1gb
+        - rdtscp
+        - lm
+        - constant_tsc
+        - arch_perfmon
+        - pebs
+        - bts
+        - nopl
+        - xtopology
+        - tsc_reliable
+        - nonstop_tsc
+        - aperfmperf
+        - eagerfpu
+        - pni
+        - pclmulqdq
+        - ssse3
+        - fma
+        - cx16
+        - pcid
+        - sse4_1
+        - sse4_2
+        - x2apic
+        - movbe
+        - popcnt
+        - tsc_deadline_timer
+        - aes
+        - xsave
+        - avx
+        - f16c
+        - rdrand
+        - hypervisor
+        - lahf_lm
+        - abm
+        - 3dnowprefetch
+        - ida
+        - arat
+        - pln
+        - pts
+        - dtherm
+        - hwp
+        - hwp_noitfy
+        - hwp_act_window
+        - hwp_epp
+        - fsgsbase
+        - tsc_adjust
+        - bmi1
+        - hle
+        - avx2
+        - smep
+        - bmi2
+        - invpcid
+        - rtm
+        - rdseed
+        - adx
+        - smap
+        - xsaveopt
+        - xsavec
+        - xgetbv1
+    cpu_model:
+        Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+    cpuarch:
+        x86_64
+    domain:
+    fqdn:
+        ubuntu
+    fqdn_ip4:
+        - 127.0.1.1
+    fqdn_ip6:
+    gpus:
+        |_
+          ----------
+          model:
+              SVGA II Adapter
+          vendor:
+              unknown
+    host:
+        ubuntu
+    hwaddr_interfaces:
+        ----------
+        eno16777736:
+            00:0c:29:a7:cf:5a
+        lo:
+            00:00:00:00:00:00
+    id:
+        ubuntu
+    init:
+        systemd
+    ip4_interfaces:
+        ----------
+        eno16777736:
+            - 192.168.126.129
+            - 192.168.126.132
+        lo:
+            - 127.0.0.1
+    ip6_interfaces:
+        ----------
+        eno16777736:
+            - fe80::20c:29ff:fea7:cf5a
+            - 192.168.126.132
+        lo:
+            - ::1
+    ip_interfaces:
+        ----------
+        eno16777736:
+            - 192.168.126.129
+            - fe80::20c:29ff:fea7:cf5a
+            - 192.168.126.132
+        lo:
+            - 127.0.0.1
+            - ::1
+    ipv4:
+        - 127.0.0.1
+        - 192.168.126.129
+        - 192.168.126.132
+    ipv6:
+        - ::1
+        - fe80::20c:29ff:fea7:cf5a
+    kernel:
+        Linux
+    kernelrelease:
+        4.2.0-16-generic
+    locale_info:
+        ----------
+        defaultencoding:
+            UTF-8
+        defaultlanguage:
+            en_US
+        detectedencoding:
+            UTF-8
+    localhost:
+        ubuntu
+    lsb_distrib_codename:
+        wily
+    lsb_distrib_description:
+        Ubuntu 15.10
+    lsb_distrib_id:
+        Ubuntu
+    lsb_distrib_release:
+        15.10
+    machine_id:
+        2af64fc78adf4b8ba44c1b51f10371e2
+    manufacturer:
+        VMware, Inc.
+    master:
+        localhost
+    mdadm:
+    mem_total:
+        2991
+    nodename:
+        ubuntu
+    num_cpus:
+        2
+    num_gpus:
+        1
+    os:
+        Ubuntu
+    os_family:
+        Debian
+    osarch:
+        amd64
+    oscodename:
+        wily
+    osfinger:
+        Ubuntu-15.10
+    osfullname:
+        Ubuntu
+    osrelease:
+        15.10
+    osrelease_info:
+        - 15
+        - 10
+    path:
+        /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    productname:
+        VMware Virtual Platform
+    ps:
+        ps -efHww
+    pythonexecutable:
+        /usr/bin/python
+    pythonpath:
+        - /usr/bin
+        - /usr/lib/python2.7
+        - /usr/lib/python2.7/plat-x86_64-linux-gnu
+        - /usr/lib/python2.7/lib-tk
+        - /usr/lib/python2.7/lib-old
+        - /usr/lib/python2.7/lib-dynload
+        - /usr/local/lib/python2.7/dist-packages
+        - /usr/lib/python2.7/dist-packages
+        - /usr/lib/python2.7/dist-packages/PILcompat
+        - /usr/lib/python2.7/dist-packages/ubuntu-sso-client
+    pythonversion:
+        - 2
+        - 7
+        - 10
+        - final
+        - 0
+    saltpath:
+        /usr/lib/python2.7/dist-packages/salt
+    saltversion:
+        2015.5.3
+    saltversioninfo:
+        - 2015
+        - 5
+        - 3
+        - 0
+    serialnumber:
+        VMware-56 4d f9 5c be f4 5a ff-4b 98 af c7 fc a7 cf 5a
+    server_id:
+        1819121879
+    shell:
+        /bin/sh
+    systemd:
+        ----------
+        features:
+            +PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID -ELFUTILS +KMOD -IDN
+        version:
+            225
+    virtual:
+        VMware
+    zmqversion:
+        4.0.5
+</code></pre>
 					</section>
 					<section>
+						<p>Eigene Grains können wie folgt definiert werden:</p>
+						<ul>
+							<li>Hard-coded in Minion-Config-File (statisch)</li>
+							<li>Script-generated (dynamisch)</li>
+						</ul>
 					</section>
-					<section>
-					</section>
-
-				</section>
-
-
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
-
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-						```
-						<section data-markdown>
-						  ## Markdown support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
-
-				<section>
 					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
-
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
+						<h2>Module und Funktionen</h2>
+						<br>
+							<p class="fragment">Module bieten ein Bündel an Funktionen für Remote-Execution an</p>
+							<p class="fragment">Module beziehen sich auf ein Thema (z. B. User, Gruppen, Paket-Handling, MySQL)</p>
+							<p class="fragment">Module abstrahieren das Arbeiten - "Meta-Befehle" (wie pkg.install) werden plattformspezifisch umgesetzt</p>
+					</section>
+					<section style="text-align: left;">
+						<p>Zahlreiche Module verfügbar..</p>
+						<table>
+							<tr>
+								<td>Pkg</td>
+								<td>cron</td>
+								<td>DRBD</td>
+								<td>Apache</td>
+								<td>file</td>
+								<td>firewalld</td>
+								<td>git</td>
+							</tr>
+							<tr>
+								<td>glusterfs</td>
+								<td>group</td>
+								<td>hadoop</td>
+								<td>haproxy</td>
+								<td>ilo</td>
+								<td>DRAC</td>
+								<td>ipmi</td>
+							</tr>
+							<tr>
+								<td>kerberos</td>
+								<td>logrotate</td>
+								<td>LVM</td>
+								<td>LXC</td>
+								<td>memcached</td>
+								<td>munin</td>
+								<td>mysql</td>
+							</tr>
+							<tr>
+								<td>nagios</td>
+								<td>oracle</td>
+								<td>postfix</td>
+								<td>postgres</td>
+								<td>rabbitmq</td>
+								<td>s3</td>
+								<td>selinux</td>
+							</tr>
+							<tr>
+								<td>splunk</td>
+								<td>sqlite</td>
+								<td>systemd</td>
+								<td>udev</td>
+								<td>useradd</td>
+								<td>win</td>
+								<td>cmd</td>
+							</tr>
+						</table>
 					</section>
 					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment fade-up">fade-up (also down, left and right!)</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p>Highlight <span class="fragment highlight-red">red</span> <span class="fragment highlight-blue">blue</span> <span class="fragment highlight-green">green</span></p>
+						<p>Module helfen auch beim Aufsetzen von Diensten</p>
+						<p>Module erlauben hohen Grad an Automatisierung</p>
+						<p>Module können in eigene Scripte eingebettet werden</p>
+					</section>
+					<section>
+						<h2>Beispiele!</h2>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:~# salt "ubuntu" pkg.install htop
+ubuntu:
+    ----------
+    htop:
+        ----------
+        new:
+            1.0.3-1
+        old:
+</code></pre>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim contenteditable>
+
+root@ubuntu:~# salt "ubuntu" service.restart apache2
+ubuntu:
+    True
+</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:~# salt "ubuntu" cron.set_job root "*" "*" "*" "*" "*" "mycommand"
+ubuntu:
+    new
+root@ubuntu:~# salt "ubuntu" cron.ls root
+ubuntu:
+    ----------
+    crons:
+        |_
+          ----------
+          cmd:
+              mycommand
+          comment:
+              None
+          daymonth:
+              *
+          dayweek:
+              *
+          hour:
+              *
+          identifier:
+              None
+          minute:
+              *
+          month:
+              *
+    env:
+    pre:
+    special:
+</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="hljs" data-trim contenteditable>
+root@ubuntu:~# salt "ubuntu" mount.fstab
+ubuntu:
+    ----------
+    /:
+        ----------
+        device:
+            overlay
+        dump:
+            0
+        fstype:
+            overlay
+        opts:
+            - rw
+        pass:
+            0
+    /tmp:
+        ----------
+        device:
+            tmpfs
+        dump:
+            0
+        fstype:
+            tmpfs
+        opts:
+            - nosuid
+            - nodev
+        pass:
+            0
+</code></pre>
 					</section>
 				</section>
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
-
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
-
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
-
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
-
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe data-src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
-
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
-
-			</div>
-
-		</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
