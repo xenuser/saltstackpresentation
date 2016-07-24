@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>SaltStack: Marionettenspieler für die Server-Farm</title>
+		<title>SaltStack: Modernes Infrastrukturmanagement</title>
 
 		<meta name="description" content="Einführung in SaltStack von Valentin Höbel">
 		<meta name="author" content="Valentin Hoebel">
@@ -42,7 +42,7 @@
 			<div class="slides">
 				<section>
 					<h1>SaltStack</h1>
-					<h3>Marionettenspieler für die Server-Farm</h3>
+					<h3>Modernes Infrastrukturmanagement</h3>
 					<p>
 						<small>Eine Einführung von <a href="http://hoebel.net">Valentin Hoebel</a> / <a href="http://twitter.com/xenuser">@xenuser (Twitter)</a></small>
 					</p>
@@ -123,10 +123,19 @@
 						<img src="images/saltstack.jpg">
 					</section>
 					<section>
+						<h2>Historisches</h2>
+						<ul>
+							<li>Erstmals aufgetaucht im März 2011</li>
+							<li>Autor: Thomas Hatch</li>
+							<li>Geschrieben für zentrale Infrastruktur-Verwaltung</li>
+							<li>Löste damals verschiedene Probleme</li>
+						</ul>
+					</section>
+					<section>
 						<h2>Im Angebot:</h2>
 						<ul>
-							<li>Configuration Management</li>
 							<li>Massive parallel sys administration</li>
+							<li>Configuration Management</li>
 							<li>Orchestration</li>
 						</ul>
 					</section>
@@ -157,8 +166,84 @@
 				</section>
 
 
+				<section>
+					<section>
+						<h2>Massive parallel sys administration</h2>
+						(oder auch: Remote Execution) <br>
+						<ul><br>
+							<li>Gedacht für sofortige Ausführung von Aktionen</li>
+							<li>Wird parallel auf allen Zielsystemen ausgeführt</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Das Vorgehen</h2>
+						Aufruf des Salt-Masters mit gewünschten Zielen und einem Modul inkl. Parameter <br><br>
+						Beispiel:
+						<pre><code class="hljs" data-trim contenteditable>
+salt "*" file.append "/etc/motd" "Welcome."
+</code></pre>
+					</section>
+					<section>
+						<h2>Aufschlüsselung</h2>
+						<br>
+						<table>
+							<tr>
+								<td><code class="hljs" data-trim contenteditable>salt</code></td>
+								<td><code class="hljs" data-trim contenteditable>"*"</code></td>
+								<td><code class="hljs" data-trim contenteditable>file.append</code></td>
+								<td><code class="hljs" data-trim contenteditable>"/etc/motd" "Welcome."</code></td>
+							</tr>
+							<tr>
+								<td>Linux-Kommando</td>
+								<td>Zielangabe</td>
+								<td>modul.funktion</td>
+								<td>Parameter</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h2>Vielfältige Zielauswahl</h2>
+						<br>
+						<ul>
+							<li>Alles ("*")</li>
+							<li>Namen inkl. Regex ("webserver01" oder "webserver*")</li>
+							<li>An Hand von Eigenschaften ("Grains") (-G "os:Debian")</li>
+							<li>Kombination (-C "G@os:Debian and webserver*")</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Beispiele</h2>
+							<pre><code class="hljs" data-trim contenteditable>salt "database0*" pkg.version mysql-server</code></pre>
+							<pre><code class="hljs" data-trim contenteditable>salt -G "site:frankfurt" user.add "praktikant"</code></pre>
+							<pre><code class="hljs" data-trim contenteditable>salt -C "G@os:Fedora and client*" cmd.run "lastlog"</code></pre>
+					</section>
+					<section>
+						<h2>Ausführliches Beispiel</h2>
+							<br>
+							<pre><code class="hljs" data-trim contenteditable>
+salt "*" user.add praktikant shell=/bin/bash
+database01:
+	True
+webserver01:
+	True
+client01:
+	True
+</code></pre>
+					</section>
+					<section>
+
+					</section>
 
 
+
+					<section>
+					</section>
+					<section>
+					</section>
+					<section>
+					</section>
+
+				</section>
 
 
 				<section>
