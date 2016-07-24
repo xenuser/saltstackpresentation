@@ -670,7 +670,7 @@ ubuntu:
 						<ul>
 							<li>Installiert und konfiguriert Dienste/Umgebungen</li>
 							<li>Module verfügbar, heissen aber States</li>
-							<li>Kann ebenfalls gleichzeitig auf mehreren Systemen ausgeführt werden</li>
+							<li>Bezieht sich i.d.R. auf ein Zielsystem oder eine Gruppe an Zielsystemen</li>
 						</ul>
 					</section>
 					<section>
@@ -982,6 +982,7 @@ Total states run:     5
 					</section>
 				</section>
 
+
 				<section>
 					<section>
 							<h2>Orchestration</h2>
@@ -989,7 +990,8 @@ Total states run:     5
 							<ul>
 								<li>Kann Aktionen in gewünschter Reihenfolge abarbeiten</li>
 								<li>Abhängigkeiten definierbar</li>
-								<li>Führt Module und States aus (Mischung aus Remote-Execution und Config-Mgmt)</li>
+								<li>Führt Module und States (Mischung aus Remote-Execution und Config-Mgmt)..</li>
+								<li>..systemübergreifend aus</li>
 							</ul>
 					</section>
 					<section>
@@ -1002,14 +1004,74 @@ Total states run:     5
 							<li>Orchestrierung anwenden</li>
 						</ol>
 					</section>
-					<section data-background="#ffffff">
+					<section>
 						<h2>Ein Beispiel</h2>
 						<p>Load-Balancer-Umgebung</p>
 						<img src="images/orch_balancer.png">
+					</section>
+					<section>
+						<h2>Die Herausforderung</h2>
+						<br>
+						<ul>
+							<li>Reihenfolge: Erst Backends, dann Load-Balancer</li>
+							<li>Abhängigkeit: Load-Balancer erst, wenn Backends funktional</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Der Plan</h2>
+						<ol>
+							<li class="fragment">Setze backend01 auf</li>
+							<li class="fragment">Setze backend02 auf</li>
+							<li class="fragment">Prüfe beide Backends</li>
+							<li class="fragment">Setze Load-Balancer auf</li>
+							<li class="fragment">Prüfe Load-Balancer</li>
+							<li class="fragment">Einträge in Nagios erzeugen o.ä.</li>
+						</ol>
+					</section>
+					<section>
+						<p>Leider kein veranschaulichendes Beispiel aus Zeit- und Platzgründen</p>
+					</section>
+					<section>
+						<h2>Weitere Beispiele für Orchestrierung</h2>
+						<p>Einrichtung MySQL-Replika</h2>
+						<p>Einrichtung von Clustern</p>
+						<p>Technische Umsetzung von (komplexen) Workflows</p>
+					</section>
 				</section>
 
+				<section>
+					<section>
+						<h2>Was kann Salt noch?</h2>
+					</section>
+					<section data-background="images/sky.jpg" style="font-weight: bold; text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">
+					  <h2 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Salt Cloud</h2>
+						<br>
+						<p>Salt Cloud provisioniert und verwaltet Systeme in Cloud- und Virtualisierungsumgebungen</p>
+						<p>Unterstützt zahlreiche Anbieter und Lösungen, wie Amazon EC2, Azure, Digital Ocean, Google Compute, Joyent, Rackspace, OpenStack, VMWare..</p>
+						<p>Damit wird Salt zum Management-Werkzeug für hybride Clouds!</p>
+					</section>
+					<section data-background="images/mine.jpg" style="font-weight: bold; text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">
+						<h2 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Salt Mine</h2>
+						<br>
+						<p class="fragment">Daten von Minions werden auf Master gespeichert</p>
+						<p class="fragment">Aktualisierung der Daten in kurzen Intervallen (anders als Grains)</p>
+						<p class="fragment">Die Daten stehen überall in Salt zur Verfügung</p>
+						<p class="fragment">Beispiel: Erfassung von Metriken</p>
+						<p class="fragment">Erlaubt dynamisches Verhalten bei unterschiedlichen Werten</p>
+					</section>
+					<section data-background="images/reactor.jpg" style="font-weight: bold; text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">
+						<h2 style="text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;">Salt Reactor</h2>
 
+					</section>
 
+				</section>
+
+files kopieren
+files einsammeln
+returner mysql etc.
+
+syndic
+proxy
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
